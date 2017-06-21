@@ -10,11 +10,11 @@ export default new Router({
             redirect: '/login'
         },
         {
-            path: '/readme',
-            component: resolve => require(['../components/common/Home.vue'], resolve),
-            children:[
+            path: '/AdminHome',
+            component: resolve => require(['../components/common/AdminHome.vue'], resolve),
+            children: [
                 {
-                    path: '/',
+                    path: '/readme',
                     component: resolve => require(['../components/page/Readme.vue'], resolve)
                 },
                 {
@@ -55,5 +55,23 @@ export default new Router({
             path: '/login',
             component: resolve => require(['../components/page/Login.vue'], resolve)
         },
+        {
+            path: '/signup',
+            component: resolve => require(['../components/page/SignUp.vue'], resolve)    // 注册组件
+        },
+        {
+            path: '/UserHome',
+            component: resolve => require(['../components/common/UserHome.vue'], resolve),    // 用户主页
+            // children: [
+            //     {
+            //         path: '/',
+            //         component: resolve => require(['../components/page/Readme.vue'], resolve)
+            //     },
+            //     {
+            //         path: '/UserTable',
+            //         component: resolve => require(['../components/page/UserTable.vue'], resolve)
+            //     },
+            // ]
+        }
     ]
 })

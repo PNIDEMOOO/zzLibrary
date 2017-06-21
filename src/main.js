@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
 import App from './App';
 import router from './router';
 import axios from 'axios';
