@@ -24,5 +24,11 @@ export default {
     },
     Renew(token){
         return this.root + 'Record/renew?token=' + this.encodeToken(token)
+    },
+    Borrow(token){
+        return this.root + 'Record/borrow?token=' + this.encodeToken(token)
+    },
+    Return(token){
+        return this.root + 'Record/return?token=' + this.encodeToken(token)
     }
 }

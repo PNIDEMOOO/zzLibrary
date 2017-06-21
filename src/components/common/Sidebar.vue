@@ -26,21 +26,32 @@
             return {
                 items: [
                     {
-                        index: 'readme',
-                        title: '管理用户信息'
+                        icon: 'el-icon-menu',
+                        index: 'UserManagement',
+                        title: '管理用户信息',
+                        subs: [
+                            {
+                                index: 'AllUsers',
+                                title: '全部用户信息'
+                            },
+                            {
+                                index: 'UserRecord',
+                                title: '用户借书信息'
+                            },
+                        ]
                     },
                     {
-                        index: 'readme',
+                        index: 'BRBook',
                         title: '借还书'
                     },
-                    {
-                        index: 'readme',
-                        title: '增减书目'
-                    },
-                    {
-                        index: 'readme',
-                        title: '管理用户信息'
-                    },
+//                    {
+//                        index: 'readme',
+//                        title: '增减书目'
+//                    },
+//                    {
+//                        index: 'readme',
+//                        title: '管理用户信息'
+//                    },
 //                    {
 //                        icon: 'el-icon-setting',
 //                        index: 'readme',
