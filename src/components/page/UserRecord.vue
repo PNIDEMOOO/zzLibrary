@@ -22,16 +22,16 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-table :data="this.userRecord" border style="width: 912px" ref="multipleTable">
+        <el-table :data="this.userRecord" border style="width: 892px" ref="multipleTable">
             <el-table-column prop="book" label="书名" width="200">
             </el-table-column>
             <el-table-column prop="borrow_time" label="借书日期" sortable width="180">
             </el-table-column>
             <el-table-column prop="deadline" label="还书日期" sortable width="180">
             </el-table-column>
-            <el-table-column prop="isclosed" label="是否归还" sortable width="150">
+            <el-table-column prop="isclosed" label="是否归还" sortable width="120">
             </el-table-column>
-            <el-table-column prop="renew" label="可续借次数" width="100">
+            <el-table-column prop="renew" label="可续借次数" width="110">
             </el-table-column>
             <el-table-column prop="isclosed" label="操作" width="100">
                 <template scope="scope">

@@ -128,22 +128,4 @@
     .block {
         margin: 10px 0;
     }
-
-    .handle-box {
-        margin-bottom: 20px;
-    }
-
-    .handle-del {
-        border-color: #bfcbd9;
-        color: #999;
-    }
-
-    .handle-select {
-        width: 120px;
-    }
-
-    .handle-input {
-        width: 300px;
-        display: inline-block;
-    }
 </style>

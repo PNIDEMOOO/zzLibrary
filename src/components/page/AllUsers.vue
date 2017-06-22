@@ -2,59 +2,41 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部用户信息</el-breadcrumb-item>
+                <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部用户信息
+                </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-
+        <el-table width="600" style="width: 602px" :data="allUsers" border ref="multipleTable">
+            <el-table-column prop="user" label="用户名" width="300">
+            </el-table-column>
+            <el-table-column prop="duration" label="借书期限" sortable width="150">
+            </el-table-column>
+            <el-table-column prop="isadmin" label="是否管理员" sortable width="150">
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
+    import urlconf from 'assets/url.conf'
     export default {
+        props: ['admin'],
         data() {
             return {
-                url: '../../../static/vuetable.json',
-                tableData: [],
-                cur_page: 1,
-                multipleSelection: [],
-                select_cate: '',
-                select_word: ''
+                allUsers: null
             }
         },
         created(){
-            this.getData();
-        },
-        methods: {
-            handleCurrentChange(val){
-                this.cur_page = val;
-                this.getData();
-            },
-            getData(){
-                let self = this;
-                if (process.env.NODE_ENV === 'development') {
-                    self.url = '/ms/table/list';
+            this.$http.get(urlconf.getAllUsers(this.admin.token)).then(resp => {
+                this.allUsers = resp.body
+                for (var i = 0; i < this.allUsers.length; i++) {
+                    this.allUsers[i].isadmin = this.allUsers[i].isadmin ? "是" : "否"
                 }
-                ;
-                self.$axios.post(self.url, {page: self.cur_page}).then((res) => {
-                    self.tableData = res.data.list;
-                })
-            },
-            formatter(row, column) {
-                return row.address;
-            },
-            filterTag(value, row) {
-                return row.tag === value;
-            },
-            handleEdit(index, row) {
-                this.$message('编辑第' + (index + 1) + '行');
-            },
-            handleDelete(index, row) {
-                this.$message.error('删除第' + (index + 1) + '行');
-            },
-            handleSelectionChange: function (val) {
-                this.multipleSelection = val;
-            }
-        }
+            }, resp => {
+                this.allUsers = null
+            })
+        },
+        methods: {}
     }
 </script>
 
@@ -67,21 +49,4 @@
         font-size: 20px;
     }
 
-    .handle-box {
-        margin-bottom: 20px;
-    }
-
-    .handle-del {
-        border-color: #bfcbd9;
-        color: #999;
-    }
-
-    .handle-select {
-        width: 120px;
-    }
-
-    .handle-input {
-        width: 300px;
-        display: inline-block;
-    }
 </style>
