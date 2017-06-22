@@ -27,6 +27,11 @@
                 items: [
                     {
                         icon: 'el-icon-menu',
+                        index: 'BRBook',
+                        title: '借书/还书'
+                    },
+                    {
+                        icon: 'el-icon-menu',
                         index: 'UserManagement',
                         title: '管理用户信息',
                         subs: [
@@ -42,23 +47,31 @@
                     },
                     {
                         icon: 'el-icon-menu',
+                        index: 'BookManagement',
+                        title: '管理书籍',
+                        subs: [
+                            {
+                                icon: 'el-icon-menu',
+                                index: 'ADBook',
+                                title: '增删书目'
+                            },
+                            {
+                                icon: 'el-icon-menu',
+                                index: 'ADCopy',
+                                title: '增删复本'
+                            },
+                        ]
+                    },
+
+                    {
+                        icon: 'el-icon-menu',
                         index: 'RecordSearch',
                         title: '借阅记录查询',
                     },
                     {
                         icon: 'el-icon-menu',
-                        index: 'BRBook',
-                        title: '借书/还书'
-                    },
-                    {
-                        icon: 'el-icon-menu',
-                        index: 'ADBook',
-                        title: '增删书目'
-                    },
-                    {
-                        icon: 'el-icon-menu',
-                        index: 'ADCopy',
-                        title: '增删复本'
+                        index: 'SearchBook',
+                        title: '搜索书本'
                     },
 //                    {
 //                        index: 'readme',

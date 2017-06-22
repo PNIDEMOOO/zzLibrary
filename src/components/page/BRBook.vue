@@ -69,11 +69,22 @@
                             username: this.borrowBook.b_Username,
                             copy: this.borrowBook.b_copy
                         }).then((response) => {
-                            alert("borrow success");
-                            location.href=''
+                            this.$message({
+                                message: '借书成功！',
+                                type: 'success'
+                            });
+                            this.borrowBook.b_Username = null
+                            this.borrowBook.b_copy = null
+                            this.borrowBook.r_Username = null
+                            this.borrowBook.r_copy = null
+                        }, response => {
+                            this.$message({
+                                message: '借书失败！',
+                                type: 'error'
+                            });
                         });
                     } else {
-                        console.log('error submit!!');
+
                         return false;
                     }
                 });
@@ -88,11 +99,21 @@
                             username: this.returnBook.r_Username,
                             copy: this.returnBook.r_copy
                         }).then((response) => {
-                            alert("Return success");
-                            location.href=''
+                            this.$message({
+                                message: '还书成功！',
+                                type: 'success'
+                            });
+                            this.borrowBook.b_Username = null
+                            this.borrowBook.b_copy = null
+                            this.borrowBook.r_Username = null
+                            this.borrowBook.r_copy = null
+                        },response=>{
+                            this.$message({
+                                message: '还书失败！',
+                                type: 'error'
+                            });
                         });
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

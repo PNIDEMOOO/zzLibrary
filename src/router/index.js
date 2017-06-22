@@ -15,7 +15,7 @@ export default new Router({
             children: [
                 {
                     path: '/',
-                    component: resolve => require(['../components/page/AllUsers.vue'], resolve)
+                    component: resolve => require(['../components/page/BRBook.vue'], resolve)
                 },
                 {
                     path: '/UserRecord',
@@ -41,26 +41,10 @@ export default new Router({
                     path: '/RecordSearch',
                     component: resolve => require(['../components/page/RecordSearch.vue'], resolve)
                 },
-                // {
-                //     path: '/vuetable',
-                //     component: resolve => require(['../components/page/VueTable.vue'], resolve)     // vue-datasource组件
-                // },
-                // {
-                //     path: '/baseform',
-                //     component: resolve => require(['../components/page/BaseForm.vue'], resolve)
-                // },
-                // {
-                //     path: '/vueeditor',
-                //     component: resolve => require(['../components/page/VueEditor.vue'], resolve)    // Vue-Quill-Editor组件
-                // },
-                // {
-                //     path: '/basecharts',
-                //     component: resolve => require(['../components/page/BaseCharts.vue'], resolve)   // vue-schart组件
-                // },
-                // {
-                //     path: '/drag',
-                //     component: resolve => require(['../components/page/DragList.vue'], resolve)    // 拖拽列表组件
-                // }
+                {
+                    path: '/SearchBook',
+                    component: resolve => require(['../components/page/SearchBook.vue'], resolve)
+                },
             ]
         },
         {
@@ -74,6 +58,20 @@ export default new Router({
         {
             path: '/UserHome',
             component: resolve => require(['../components/common/UserHome.vue'], resolve),    // 用户主页
+            children: [
+                {
+                    path: '/',
+                    component: resolve => require(['../components/page/UserTable.vue'], resolve)
+                },
+                {
+                    path: '/UserSearchBook',
+                    component: resolve => require(['../components/page/UserSearchBook.vue'], resolve)
+                },
+                {
+                    path: '/UserTable',
+                    component: resolve => require(['../components/page/UserTable.vue'], resolve)
+                },
+            ]
         }
     ]
 })

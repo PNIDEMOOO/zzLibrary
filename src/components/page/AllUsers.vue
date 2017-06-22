@@ -5,39 +5,7 @@
                 <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部用户信息</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <!--<div class="handle-box">-->
-        <!--<el-button class="handle-del mr10">批量删除</el-button>-->
-        <!--<el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">-->
-        <!--<el-option key="1" label="广东省" value="1"></el-option>-->
-        <!--<el-option key="2" label="湖南省" value="2"></el-option>-->
-        <!--</el-select>-->
-        <!--<el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>-->
-        <!--<el-button type="primary" icon="search">搜索</el-button>-->
-        <!--</div>-->
-        <!--<el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">-->
-        <!--<el-table-column type="selection" width="55"></el-table-column>-->
-        <!--<el-table-column prop="date" label="日期" sortable width="150">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column prop="name" label="姓名" width="120">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column prop="address" label="地址" :formatter="formatter">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column label="操作" width="180">-->
-        <!--<template scope="scope">-->
-        <!--<el-button size="small"-->
-        <!--@click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
-        <!--<el-button size="small" type="danger"-->
-        <!--@click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
-        <!--</template>-->
-        <!--</el-table-column>-->
-        <!--</el-table>-->
-        <!--<div class="pagination">-->
-        <!--<el-pagination-->
-        <!--@current-change ="handleCurrentChange"-->
-        <!--layout="prev, pager, next"-->
-        <!--:total="1000">-->
-        <!--</el-pagination>-->
-        <!--</div>-->
+
     </div>
 </template>
 

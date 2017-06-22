@@ -70,7 +70,7 @@
         },
         methods: {
             search(){
-                this.$http.get(urlconf.searchBook(this.isbn)).then(resp => {
+                this.$http.get(urlconf.searchBookByISBN(this.isbn)).then(resp => {
                     this.hasBookInfo = resp.body
                 }, resp => {
                     this.hasBookInfo = null

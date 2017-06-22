@@ -6,34 +6,50 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-input v-model="username" type="text" placeholder="请输入用户名" style="width: 200px"></el-input>
+        <p>{{$data}}</p>
+        <el-input v-model="copyId" type="text" placeholder="请输入复本ID" style="width: 200px"></el-input>
         <el-button type="primary" @click="search()">查询</el-button>
-
+        <el-table :data="copyRecords" border style="width: 912px" ref="multipleTable">
+            <el-table-column prop="book" label="书名" sortable width="200">
+            </el-table-column>
+            <el-table-column prop="borrow_time" label="借书日期" sortable width="170">
+            </el-table-column>
+            <el-table-column prop="deadline" label="还书日期" sortable width="170">
+            </el-table-column>
+            <el-table-column prop="renew" label="续借次数" sortable width="120">
+            </el-table-column>
+            <el-table-column prop="isclosed" label="是否归还" sortable width="120">
+            </el-table-column>
+            <el-table-column prop="operator" label="经手人" sortable width="100">
+            </el-table-column>
+        </el-table>
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部借阅记录
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-table :data="this.userRecord" border style="width: 912px" ref="multipleTable">
-            <el-table-column prop="book" label="书名" width="200">
-            </el-table-column>
-            <el-table-column prop="borrow_time" label="借书日期" sortable width="180">
-            </el-table-column>
-            <el-table-column prop="deadline" label="还书日期" sortable width="180">
-            </el-table-column>
-            <el-table-column prop="isclosed" label="是否归还" sortable width="150">
-            </el-table-column>
-            <el-table-column prop="renew" label="可续借次数" width="100">
-            </el-table-column>
-            <el-table-column prop="isclosed" label="操作" width="100">
-                <template scope="scope">
-                    <el-button v-if="scope.row.isclosed=='否' && scope.row.renew !=0" size="small"
-                               @click="handleEdit(scope.$index, scope.row)">续借
-                    </el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+        <!--<el-table :data="this.userRecord" border style="width: 912px" ref="multipleTable">-->
+        <!--<el-table-column prop="book" label="书名" width="200">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column prop="borrow_time" label="借书日期" sortable width="180">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column prop="deadline" label="还书日期" sortable width="180">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column prop="isclosed" label="是否归还" sortable width="150">-->
+        <!--</el-table-column>-->
+        <!--<el-table-column prop="renew" label="可续借次数" width="100">-->
+        <!--</el-table-column>-->
+        <!--</el-table>-->
+        <div class="block">
+            <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-size="40"
+                layout="total, prev, pager, next, jumper"
+                :total="400">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -43,37 +59,33 @@
         props: ['admin'],
         data() {
             return {
-                username: '',
-                userinfo: null,
-                userRecord: []
+                copyId: null,
+                copyRecords: [],
+                currentPage: 1,
+                allRecords: []
             }
         },
         created(){
+            this.$http.get(urlconf.getAllRecords(this.admin.token, this.currentPage)).then(resp => {
+                this.allRecords = resp.body
+            }, resp => {
+                this.allRecords = null
+            })
         },
         methods: {
             search() {
-                this.$http.get(urlconf.GetUserInfo(this.admin.token, this.username)).then(resp => {
-                    this.userinfo = resp.body
+                this.$http.get(urlconf.getCopyRecord(this.admin.token, this.copyId)).then(resp => {
+                    this.copyRecords = resp.body
                 }, resp => {
-                    this.userinfo = null
-                })
-                this.$http.get(urlconf.GetUserRecord(this.admin.token, this.username)).then(resp => {
-                    this.userRecord = resp.body
-                    for (var i = 0; i < this.userRecord.length; i++) {
-                        this.userRecord[i].isclosed = this.userRecord[i].isclosed ? "是" : "否"
-                        this.userRecord[i].borrow_time = this.userRecord[i].borrow_time.replace('T', ' ')
-                        this.userRecord[i].deadline = this.userRecord[i].deadline.replace('T', ' ')
-                    }
-                }, resp => {
-                    this.userRecord = []
+                    this.copyRecords = null
                 })
             },
-            handleEdit(index, row) {
-                this.$http.post(urlconf.Renew(this.admin.token), {
-                    username: this.username,
-                    copy: row.copy
-                }).then(resp => {
-                    location.href = ''
+            handleCurrentChange(val) {
+                this.currentPage = val
+                this.$http.get(urlconf.getAllRecords(this.admin.token, this.currentPage)).then(resp => {
+                    this.allRecords = resp.body
+                }, resp => {
+                    this.allRecords = null
                 })
             }
         }
