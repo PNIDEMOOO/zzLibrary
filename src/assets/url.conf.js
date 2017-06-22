@@ -30,5 +30,23 @@ export default {
     },
     Return(token){
         return this.root + 'Record/return?token=' + this.encodeToken(token)
+    },
+    searchBook(isbn){
+        return this.root + 'Book/Get?isbn=' + isbn
+    },
+    addBook(token){
+        return this.root + 'Book/add?token=' + this.encodeToken(token)
+    },
+    deleteBook(token, isbn){
+        return this.root + 'Book/Delete?token=' + this.encodeToken(token) + '&isbn=' + isbn
+    },
+    getCopy(isbn){
+        return this.root + 'Copy/Get?isbn=' + isbn
+    },
+    addCopy(token, isbn, num){
+        return this.root + 'Copy/add?token=' + this.encodeToken(token) + '&isbn=' + isbn + '&num=' + num
+    },
+    deleteCopy(token, id){
+        return this.root + 'Copy/Delete?token=' + this.encodeToken(token) + '&id=' + id
     }
 }

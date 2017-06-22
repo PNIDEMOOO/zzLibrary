@@ -1,6 +1,11 @@
 <template>
     <div class="BRBook-wrap">
-        <p>借书</p>
+        <div class="crumbs">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 借书
+                </el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <div class="form-box">
             <el-form :model="borrowBook" ref="borrowBook" label-width="100px">
                 <el-form-item label="用户名" prop="b_Username">
@@ -15,7 +20,12 @@
                 </el-form-item>
             </el-form>
         </div>
-        <p>还书</p>
+        <div class="crumbs">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 还书
+                </el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <div class="form-box">
             <el-form :model="returnBook" ref="returnBook" label-width="100px">
                 <el-form-item label="用户名" prop="b_Username">
@@ -95,5 +105,11 @@
 </script>
 
 <style scoped>
+    .crumbs {
+        margin: 10px 0;
+    }
 
+    .table-title {
+        font-size: 20px;
+    }
 </style>

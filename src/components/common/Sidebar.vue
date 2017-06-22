@@ -41,8 +41,24 @@
                         ]
                     },
                     {
+                        icon: 'el-icon-menu',
+                        index: 'RecordSearch',
+                        title: '借阅记录查询',
+                    },
+                    {
+                        icon: 'el-icon-menu',
                         index: 'BRBook',
-                        title: '借还书'
+                        title: '借书/还书'
+                    },
+                    {
+                        icon: 'el-icon-menu',
+                        index: 'ADBook',
+                        title: '增删书目'
+                    },
+                    {
+                        icon: 'el-icon-menu',
+                        index: 'ADCopy',
+                        title: '增删复本'
                     },
 //                    {
 //                        index: 'readme',

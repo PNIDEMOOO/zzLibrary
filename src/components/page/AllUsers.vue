@@ -1,6 +1,5 @@
 <template>
     <div class="table">
-        xxxxx
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部用户信息</el-breadcrumb-item>

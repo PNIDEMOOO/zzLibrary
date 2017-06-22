@@ -29,6 +29,18 @@ export default new Router({
                     path: '/BRBook',
                     component: resolve => require(['../components/page/BRBook.vue'], resolve)
                 },
+                {
+                    path: '/ADBook',
+                    component: resolve => require(['../components/page/ADBook.vue'], resolve)
+                },
+                {
+                    path: '/ADCopy',
+                    component: resolve => require(['../components/page/ADCopy.vue'], resolve)
+                },
+                {
+                    path: '/RecordSearch',
+                    component: resolve => require(['../components/page/RecordSearch.vue'], resolve)
+                },
                 // {
                 //     path: '/vuetable',
                 //     component: resolve => require(['../components/page/VueTable.vue'], resolve)     // vue-datasource组件
@@ -40,14 +52,6 @@ export default new Router({
                 // {
                 //     path: '/vueeditor',
                 //     component: resolve => require(['../components/page/VueEditor.vue'], resolve)    // Vue-Quill-Editor组件
-                // },
-                // {
-                //     path: '/markdown',
-                //     component: resolve => require(['../components/page/Markdown.vue'], resolve)     // Vue-Quill-Editor组件
-                // },
-                // {
-                //     path: '/upload',
-                //     component: resolve => require(['../components/page/Upload.vue'], resolve)       // Vue-Core-Image-Upload组件
                 // },
                 // {
                 //     path: '/basecharts',
