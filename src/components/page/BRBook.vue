@@ -28,10 +28,10 @@
         </div>
         <div class="form-box">
             <el-form :model="returnBook" ref="returnBook" label-width="100px">
-                <el-form-item label="用户名" prop="b_Username">
+                <el-form-item label="用户名" prop="r_Username">
                     <el-input v-model="returnBook.r_Username"></el-input>
                 </el-form-item>
-                <el-form-item label="复本id" prop="b_copy">
+                <el-form-item label="复本id" prop="r_copy">
                     <el-input v-model="returnBook.r_copy" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -75,8 +75,8 @@
                             });
                             this.borrowBook.b_Username = null
                             this.borrowBook.b_copy = null
-                            this.borrowBook.r_Username = null
-                            this.borrowBook.r_copy = null
+                            this.returnBook.r_Username = null
+                            this.returnBook.r_copy = null
                         }, response => {
                             this.$message({
                                 message: '借书失败！',
@@ -84,7 +84,6 @@
                             });
                         });
                     } else {
-
                         return false;
                     }
                 });
@@ -99,15 +98,16 @@
                             username: this.returnBook.r_Username,
                             copy: this.returnBook.r_copy
                         }).then((response) => {
+                            console.log("ssssss")
+                            this.borrowBook.b_Username = null
+                            this.borrowBook.b_copy = null
+                            this.returnBook.r_Username = null
+                            this.returnBook.r_copy = null
                             this.$message({
                                 message: '还书成功！',
                                 type: 'success'
                             });
-                            this.borrowBook.b_Username = null
-                            this.borrowBook.b_copy = null
-                            this.borrowBook.r_Username = null
-                            this.borrowBook.r_copy = null
-                        },response=>{
+                        }, response => {
                             this.$message({
                                 message: '还书失败！',
                                 type: 'error'
