@@ -95,7 +95,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        /*background-color: #f7c04a;*/
+        /*background-color: #3b485b;*/
         /*background-image: url("../../images/bg0.jpg");*/
     }
 
