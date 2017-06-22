@@ -38,7 +38,7 @@
                 this.$http.get(urlconf.GetUserRecord(this.user.token, this.user.user)).then(resp => {
                     this.userRecord = resp.body
                     for (var i = 0; i < this.userRecord.length; i++) {
-                        this.userRecord[i].isclosed = this.userRecord[i].isclosed ? "是" : "否"
+                        this.userRecord[i].isclosed = this.userRecord[i].isclosed ? "√" : "×"
                         this.userRecord[i].borrow_time = this.userRecord[i].borrow_time.replace('T', ' ')
                         this.userRecord[i].deadline = this.userRecord[i].deadline.replace('T', ' ')
                     }

@@ -35,7 +35,7 @@
             </el-table-column>
             <el-table-column prop="isclosed" label="操作" width="100">
                 <template scope="scope">
-                    <el-button v-if="scope.row.isclosed=='否' && scope.row.renew !=0" size="small"
+                    <el-button v-if="scope.row.isclosed=='×' && scope.row.renew !=0" size="small"
                                @click="handleEdit(scope.$index, scope.row)">续借
                     </el-button>
                 </template>
@@ -67,7 +67,7 @@
                 this.$http.get(urlconf.GetUserRecord(this.admin.token, this.username)).then(resp => {
                     this.userRecord = resp.body
                     for (var i = 0; i < this.userRecord.length; i++) {
-                        this.userRecord[i].isclosed = this.userRecord[i].isclosed ? "是" : "否"
+                        this.userRecord[i].isclosed = this.userRecord[i].isclosed ? "√" : "×"
                         this.userRecord[i].borrow_time = this.userRecord[i].borrow_time.replace('T', ' ')
                         this.userRecord[i].deadline = this.userRecord[i].deadline.replace('T', ' ')
                     }

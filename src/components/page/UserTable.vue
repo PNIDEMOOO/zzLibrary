@@ -30,7 +30,7 @@
             </el-table-column>
             <el-table-column prop="isclosed" label="操作" width="80">
                 <template scope="scope">
-                    <el-button v-if="scope.row.isclosed=='否' && scope.row.renew !=0" size="small"
+                    <el-button v-if="scope.row.isclosed=='×' && scope.row.renew !=0" size="small"
                                @click="handleEdit(scope.$index, scope.row)">续借
                     </el-button>
                 </template>

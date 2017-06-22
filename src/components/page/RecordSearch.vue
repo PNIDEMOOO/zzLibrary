@@ -6,49 +6,50 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <p>{{$data}}</p>
         <el-input v-model="copyId" type="text" placeholder="请输入复本ID" style="width: 200px"></el-input>
-        <el-button type="primary" @click="search()">查询</el-button>
-        <el-table :data="copyRecords" border style="width: 912px" ref="multipleTable">
+        <el-button class="search-margin" type="primary" @click="search()">查询</el-button>
+        <el-table v-if="copyRecords" :data="copyRecords" border style="width: 912px" ref="multipleTable">
             <el-table-column prop="book" label="书名" sortable width="200">
             </el-table-column>
             <el-table-column prop="borrow_time" label="借书日期" sortable width="170">
             </el-table-column>
             <el-table-column prop="deadline" label="还书日期" sortable width="170">
             </el-table-column>
-            <el-table-column prop="renew" label="续借次数" sortable width="120">
+            <el-table-column prop="renew" label="剩余续借次数" sortable width="150">
             </el-table-column>
             <el-table-column prop="isclosed" label="是否归还" sortable width="120">
             </el-table-column>
             <el-table-column prop="operator" label="经手人" sortable width="100">
             </el-table-column>
         </el-table>
-        <div v-if="allBook&&!bookInfo">
+        <div v-if="allRecords&&!copyRecords">
             <div class="crumbs">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item class="table-title"><i class="el-icon-menu table-title"></i> 全部借阅记录
                     </el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
-            <el-table style="width: 100%" :data="allBook.books" border ref="multipleTable">
-                <el-table-column prop="isbn" label="ISBN" width="150">
+            <el-table style="width: 100%;margin-top: 20px;" :data="allRecords.records" border ref="multipleTable">
+                <el-table-column prop="copy" label="复本id" sortable width="200">
                 </el-table-column>
-                <el-table-column prop="title" label="书名" width="300">
+                <el-table-column prop="user" label="借书人" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="author" label="作者" sortable width="150">
+                <el-table-column prop="borrow_time" label="借书日期" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="price" label="价格" sortable width="100">
+                <el-table-column prop="deadline" label="还书日期" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="edition" label="出版信息" sortable width="230">
+                <el-table-column prop="isclosed" label="是否归还" sortable width="120">
+                </el-table-column>
+                <el-table-column prop="operator" label="经手人" sortable width="100">
                 </el-table-column>
             </el-table>
             <div class="block">
                 <el-pagination
                     @current-change="handleCurrentChange"
                     :current-page="currentPage"
-                    :page-size="20"
+                    :page-size="40"
                     layout="prev, pager, next, jumper"
-                    :total=allBook.total*20>
+                    :total=allRecords.total*40>
                 </el-pagination>
             </div>
         </div>
@@ -62,7 +63,7 @@
         data() {
             return {
                 copyId: null,
-                copyRecords: [],
+                copyRecords: null,
                 currentPage: 1,
                 allRecords: []
             }
@@ -70,6 +71,11 @@
         created(){
             this.$http.get(urlconf.getAllRecords(this.admin.token, this.currentPage)).then(resp => {
                 this.allRecords = resp.body
+                for (var i = 0; i < this.allRecords.records.length; i++) {
+                    this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
+                    this.allRecords.records[i].borrow_time = this.allRecords.records[i].borrow_time.replace('T', ' ')
+                    this.allRecords.records[i].deadline = this.allRecords.records[i].deadline.replace('T', ' ')
+                }
             }, resp => {
                 this.allRecords = null
             })
@@ -78,6 +84,11 @@
             search() {
                 this.$http.get(urlconf.getCopyRecord(this.admin.token, this.copyId)).then(resp => {
                     this.copyRecords = resp.body
+                    for (var i = 0; i < this.copyRecords.length; i++) {
+                        this.copyRecords[i].isclosed = this.copyRecords[i].isclosed ? "√" : "×"
+                        this.copyRecords[i].borrow_time = this.copyRecords[i].borrow_time.replace('T', ' ')
+                        this.copyRecords[i].deadline = this.copyRecords[i].deadline.replace('T', ' ')
+                    }
                 }, resp => {
                     this.copyRecords = null
                 })
@@ -86,6 +97,12 @@
                 this.currentPage = val
                 this.$http.get(urlconf.getAllRecords(this.admin.token, this.currentPage)).then(resp => {
                     this.allRecords = resp.body
+                    for (var i = 0; i < this.allRecords.records.length; i++) {
+                        console.log(i)
+                        this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
+                        this.allRecords.records[i].borrow_time = this.allRecords.records[i].borrow_time.replace('T', ' ')
+                        this.allRecords.records[i].deadline = this.allRecords.records[i].deadline.replace('T', ' ')
+                    }
                 }, resp => {
                     this.allRecords = null
                 })
@@ -110,21 +127,8 @@
         font-size: 20px;
     }
 
-    .handle-box {
+    .search-margin {
+        margin-top: 10px;
         margin-bottom: 20px;
-    }
-
-    .handle-del {
-        border-color: #bfcbd9;
-        color: #999;
-    }
-
-    .handle-select {
-        width: 120px;
-    }
-
-    .handle-input {
-        width: 300px;
-        display: inline-block;
     }
 </style>

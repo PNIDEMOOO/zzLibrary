@@ -30,7 +30,7 @@
             this.$http.get(urlconf.getAllUsers(this.admin.token)).then(resp => {
                 this.allUsers = resp.body
                 for (var i = 0; i < this.allUsers.length; i++) {
-                    this.allUsers[i].isadmin = this.allUsers[i].isadmin ? "是" : "否"
+                    this.allUsers[i].isadmin = this.allUsers[i].isadmin ? "√" : "×"
                 }
             }, resp => {
                 this.allUsers = null
