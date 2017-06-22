@@ -6,51 +6,50 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <p>{{$data}}</p>
         <div class="bookInfoForm">
             <div class="form-box">
                 <el-form label-width="40px">
                     <el-form-item label="ISBN" prop="isbn">
                         <el-input v-model="isbn" style="width: 200px" placeholder="输入书本的ISBN"></el-input>
                         <el-button type="primary" @click="search()">查询</el-button>
+                        <el-p class="tip" v-if="hasBookInfo">馆内有此书</el-p>
+                        <el-p class="tip" v-if="!this.hasBookInfo && this.bookInfo && !this.bookInfo.hasOwnProperty('ErrorCode')">馆内无此书，可录入</el-p>
+                        <el-p class="tip" v-if="!this.hasBookInfo && this.bookInfo && this.bookInfo.hasOwnProperty('ErrorCode')">此ISBN无效</el-p>
                     </el-form-item>
                 </el-form>
                 <el-form v-if="hasBookInfo" :model="hasBookInfo" ref="hasBookInfo" label-width="40px">
-                    <el-form-item label="书名" prop="hasBookInfo.title">
-                        <el-input v-model="hasBookInfo.title"></el-input>
+                    <el-form-item label="书名" prop="title">
+                        <p>{{hasBookInfo.title}}</p>
                     </el-form-item>
-                    <el-form-item label="作者" prop="hasBookInfo.author">
-                        <el-input v-model="hasBookInfo.author"></el-input>
+                    <el-form-item label="作者" prop="author">
+                        <p>{{hasBookInfo.author}}</p>
                     </el-form-item>
-                    <el-form-item label="版本" prop="hasBookInfo.edition">
-                        <el-input v-model="hasBookInfo.edition"></el-input>
+                    <el-form-item label="版本" prop="edition">
+                        <p>{{hasBookInfo.edition}}</p>
                     </el-form-item>
-                    <el-form-item label="价钱" prop="hasBookInfo.price">
-                        <el-input v-model="hasBookInfo.price"></el-input>
+                    <el-form-item label="价钱" prop="price">
+                        <p>{{hasBookInfo.price}}</p>
                     </el-form-item>
                     <el-form-item>
-                        <el-button disabled type="success" @click="addBook()">录入</el-button>
                         <el-button type="danger" @click="deleteBook()">删除</el-button>
-                        <el-button @click="resetForm('hasBookInfo')">重置</el-button>
                     </el-form-item>
                 </el-form>
-                <el-form v-if="!hasBookInfo&&bookInfo" :model="bookInfo" ref="bookInfo" label-width="40px">
-                    <el-form-item label="书名" prop="bookInfo.title">
-                        <el-input v-model="bookInfo.title"></el-input>
+                <el-form v-if="!this.hasBookInfo && this.bookInfo && !this.bookInfo.hasOwnProperty('ErrorCode')" :model="bookInfo" ref="bookInfo"
+                         label-width="40px">
+                    <el-form-item label="书名" prop="BookName">
+                        <el-input v-model="bookInfo.BookName"></el-input>
                     </el-form-item>
-                    <el-form-item label="作者" prop="bookInfo.author">
-                        <el-input v-model="bookInfo.author"></el-input>
+                    <el-form-item label="作者" prop="Author">
+                        <el-input v-model="bookInfo.Author"></el-input>
                     </el-form-item>
-                    <el-form-item label="版本" prop="bookInfo.edition">
-                        <el-input v-model="bookInfo.edition"></el-input>
+                    <el-form-item label="版本" prop="Publishing">
+                        <el-input v-model="bookInfo.Publishing"></el-input>
                     </el-form-item>
-                    <el-form-item label="价钱" prop="bookInfo.price">
-                        <el-input v-model="bookInfo.price"></el-input>
+                    <el-form-item label="价钱" prop="Price">
+                        <el-input v-model="bookInfo.Price"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="success" @click="addBook()">录入</el-button>
-                        <el-button disabled type="danger" @click="deleteBook()">删除</el-button>
-                        <el-button @click="resetForm('bookInfo')">重置</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -60,13 +59,16 @@
 
 <script>
     import urlconf from 'assets/url.conf'
+    import ElFormItem from "../../../node_modules/element-ui/packages/form/src/form-item";
     export default {
+        components: {ElFormItem},
         props: ['admin'],
         data() {
             return {
                 isbn: null,
                 bookInfo: null,
-                hasBookInfo: null
+                hasBookInfo: null,
+                errorCode: false
             }
         },
         created(){
@@ -75,27 +77,22 @@
             search(){
                 this.$http.get(urlconf.searchBookByISBN(this.isbn)).then(resp => {
                     this.hasBookInfo = resp.body
+                    this.errorCode = false
                 }, resp => {
                     this.hasBookInfo = null
+                    this.$http.get(urlconf.searchOuterBook(this.admin.token, this.isbn)).then(response => {
+                        this.bookInfo = response.body
+                        if (this.bookInfo.hasOwnProperty("ErrorCode")) {
+                            this.errorCode = true
+                        }
+                        else {
+                            this.errorCode = false
+                        }
+                    }, resp => {
+                        this.bookInfo = null
+                    })
                 })
 
-                var url = 'http://isbn.szmesoft.com/isbn/query?isbn=' + this.isbn;
-//                this.$http.get(url).then(resp => {
-//                    console.log("sssss")
-////                    this.BookInfo = resp.body
-//                }, resp => {
-////                    this.BookInfo = null
-//                })
-//                this.$http.jsonp("http://isbn.szmesoft.com/isbn/query?isbn=" + this.isbn,
-//                    {
-//                        headers: {},
-//                        emulateJSON: true
-//                    }).then(resp => {
-//                        console.log(resp.body)
-////                    this.bookInfo = JSON.parse(resp.body)
-//                }, resp => {
-//                    this.bookInfo = null
-//                })
             },
             addBook(){
                 var info = {
@@ -104,19 +101,35 @@
                     "author": this.bookInfo.Author,
                     "price": this.bookInfo.Price,
                     "edition": this.bookInfo.Publishing,
-                    "copy": ''
+                    "copy": null
                 }
                 this.$http.put(urlconf.addBook(this.admin.token), info).then(resp => {
-                    alert("add success")
+                    this.$message({
+                        message: '录入成功！',
+                        type: 'success'
+                    });
+                    this.bookInfo = null
+                    this.isbn = null
                 }, resp => {
-                    console.log("add failed!!!")
+                    this.$message({
+                        message: '录入失败！',
+                        type: 'error'
+                    });
                 })
             },
             deleteBook(){
-                this.$http.delete(urlconf.deleteBook(this.admin.token,this.isbn)).then(resp => {
-                    alert("delete success")
+                this.$http.delete(urlconf.deleteBook(this.admin.token, this.isbn)).then(resp => {
+                    this.$message({
+                        message: '删除成功！',
+                        type: 'success'
+                    });
+                    this.hasBookInfo = null
+                    this.isbn = null
                 }, resp => {
-                    console.log("delete failed!!!")
+                    this.$message({
+                        message: '删除失败！',
+                        type: 'error'
+                    });
                 })
             }
         }
@@ -135,4 +148,11 @@
     .bookInfoForm {
         margin-top: 30px;
     }
+
+    .tip {
+        margin-left: 20px;
+        font-size: 17px;
+        color: #d43f3a;
+    }
+
 </style>

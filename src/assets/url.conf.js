@@ -37,6 +37,9 @@ export default {
     searchBookByTitle(title, pageid){
         return this.root + 'Book/search?title=' + title + '&page=' + pageid
     },
+    searchOuterBook(token, isbn){
+        return this.root + 'Book/info?token=' + this.encodeToken(token) + '&isbn=' + isbn
+    },
     addBook(token){
         return this.root + 'Book/add?token=' + this.encodeToken(token)
     },

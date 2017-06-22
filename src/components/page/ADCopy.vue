@@ -6,7 +6,6 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <!--<p>{{$data}}</p>-->
         <div class="bookInfoForm">
             <div class="form-box">
                 <el-form label-width="40px">
@@ -83,24 +82,38 @@
             },
             addCopy(){
                 this.$http.put(urlconf.addCopy(this.admin.token, this.isbn, this.addNum)).then(resp => {
-                    alert("add success")
+                    this.$message({
+                        message: '录入成功！',
+                        type: 'success'
+                    });
+                    this.$http.get(urlconf.getCopy(this.isbn)).then(resp => {
+                        this.copyInfo = resp.body
+                    }, resp => {
+                        this.copyInfo = null
+                    })
                 }, resp => {
-                    console.log("add failed!!!")
+                    this.$message({
+                        message: '录入失败！',
+                        type: 'error'
+                    });
                 })
             },
-//            deleteCopy(){
-//                this.$http.delete(urlconf.deleteCopy(this.admin.token, this.deleteId)).then(resp => {
-//                    alert("delete success")
-//                    this.$router.push('/ADCopy');
-//                }, resp => {
-//                    console.log("delete failed!!!")
-//                })
-//            },
             deleteCopy(index, row) {
                 this.$http.delete(urlconf.deleteCopy(this.admin.token, row.id)).then(resp => {
-                    alert("delete success")
+                    this.$message({
+                        message: '删除成功！',
+                        type: 'success'
+                    });
+                    this.$http.get(urlconf.getCopy(this.isbn)).then(resp => {
+                        this.copyInfo = resp.body
+                    }, resp => {
+                        this.copyInfo = null
+                    })
                 }, resp => {
-                    console.log("delete failed!!!")
+                    this.$message({
+                        message: '删除失败！',
+                        type: 'error'
+                    });
                 })
             }
         }
