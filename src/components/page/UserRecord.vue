@@ -31,8 +31,14 @@
             </el-table-column>
             <el-table-column prop="isclosed" label="是否归还" align="center" sortable width="120">
                 <template scope="scope">
-                    <i v-if="!scope.row.isclosed" class="iconfont icon-false"></i>
-                    <i v-if="scope.row.isclosed" class="iconfont icon-true"></i>
+                    <!--<i v-if="!scope.row.isclosed" class="iconfont icon-false"></i>-->
+                    <!--<i v-if="scope.row.isclosed" class="iconfont icon-true"></i>-->
+                    <svg v-if="!scope.row.isclosed" class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-false"></use>
+                    </svg>
+                    <svg v-if="scope.row.isclosed" class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-true"></use>
+                    </svg>
                 </template>
             </el-table-column>
             <el-table-column prop="renew" label="可续借次数" align="center" width="110">

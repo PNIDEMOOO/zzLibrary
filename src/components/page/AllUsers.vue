@@ -13,8 +13,14 @@
             </el-table-column>
             <el-table-column prop="isadmin" label="是否管理员" align="center" sortable width="150">
                 <template scope="scope">
-                    <i v-if="scope.row.isadmin" class="iconfont icon-false"></i>
-                    <i v-if="!scope.row.isadmin" class="iconfont icon-true"></i>
+                    <!--<i v-if="scope.row.isadmin" class="iconfont icon-false"></i>-->
+                    <!--<i v-if="!scope.row.isadmin" class="iconfont icon-true"></i>-->
+                    <svg v-if="!scope.row.isadmin" class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-false"></use>
+                    </svg>
+                    <svg v-if="scope.row.isadmin" class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-true"></use>
+                    </svg>
                 </template>
             </el-table-column>
         </el-table>
