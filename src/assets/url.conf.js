@@ -1,7 +1,7 @@
 export default {
     // api的根目录地址
-    // root: 'http://localhost:49224/api/',
-    root: 'http://zz.ngrok.donggu.me/api/',
+    root: 'http://localhost:49224/api/',
+    // root: 'http://zz.ngrok.donggu.me/api/',
     encodeToken (token) {
         return token.replace(/\+/g, '%2B')
     },

@@ -40,6 +40,17 @@
                 </el-form-item>
             </el-form>
         </div>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            size="tiny">
+            <span>还书成功</span>
+            <p>欠款：<span>{{penalty}}</span>元</p>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -49,6 +60,8 @@
         props: ['admin'],
         data() {
             return {
+                penalty: null,
+                dialogVisible: false,
                 borrowBook: {
                     b_Username: null,
                     b_copy: null,
@@ -98,7 +111,6 @@
                             username: this.returnBook.r_Username,
                             copy: this.returnBook.r_copy
                         }).then((response) => {
-                            console.log("ssssss")
                             this.borrowBook.b_Username = null
                             this.borrowBook.b_copy = null
                             this.returnBook.r_Username = null
@@ -107,6 +119,9 @@
                                 message: '还书成功！',
                                 type: 'success'
                             });
+                            this.dialogVisible = true
+                            this.penalty = response.body.penalty
+                            console.log(this.penalty)
                         }, response => {
                             this.$message({
                                 message: '还书失败！',
@@ -120,7 +135,7 @@
             },
             resetReturn(formName) {
                 this.$refs[formName].resetFields();
-            }
+            },
         }
     }
 </script>
