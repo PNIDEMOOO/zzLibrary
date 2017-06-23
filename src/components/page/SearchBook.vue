@@ -12,7 +12,7 @@
             </el-table-column>
             <el-table-column prop="price" label="价格" sortable width="100">
             </el-table-column>
-            <el-table-column prop="edition" label="出版信息" sortable width="230">
+            <el-table-column prop="edition" label="出版信息" sortable>
             </el-table-column>
         </el-table>
         <div v-if="bookInfo" class="block">
@@ -40,7 +40,7 @@
                 </el-table-column>
                 <el-table-column prop="price" label="价格" sortable width="100">
                 </el-table-column>
-                <el-table-column prop="edition" label="出版信息" sortable width="230">
+                <el-table-column prop="edition" label="出版信息" sortable>
                 </el-table-column>
             </el-table>
             <div class="block">

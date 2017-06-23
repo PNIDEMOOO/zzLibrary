@@ -17,18 +17,18 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-table :data="this.userRecord" border ref="multipleTable">
-            <el-table-column prop="book" label="书名" width="250">
+        <el-table :data="this.userRecord" style="width:100%" border ref="multipleTable">
+            <el-table-column prop="book" label="书名">
             </el-table-column>
-            <el-table-column prop="borrow_time" label="借书日期" sortable width="200">
+            <el-table-column prop="borrow_time" label="借书日期" align="center" sortable width="180">
             </el-table-column>
-            <el-table-column prop="deadline" label="还书日期" sortable width="200">
+            <el-table-column prop="deadline" label="还书日期" align="center" sortable width="180">
             </el-table-column>
-            <el-table-column prop="isclosed" label="是否归还" sortable width="120">
+            <el-table-column prop="isclosed" label="是否归还" align="center" sortable width="120">
             </el-table-column>
-            <el-table-column prop="renew" label="可续借次数" width="80">
+            <el-table-column prop="renew" label="可续借次数" align="center" width="80">
             </el-table-column>
-            <el-table-column prop="isclosed" label="操作" width="80">
+            <el-table-column prop="isclosed" label="操作" align="center" width="80">
                 <template scope="scope">
                     <el-button v-if="scope.row.isclosed=='×' && scope.row.renew !=0" size="small"
                                @click="handleEdit(scope.$index, scope.row)">续借

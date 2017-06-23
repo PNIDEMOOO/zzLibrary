@@ -8,18 +8,18 @@
         </div>
         <el-input v-model="copyId" type="text" placeholder="请输入复本ID" style="width: 200px"></el-input>
         <el-button class="search-margin" type="primary" @click="search()">查询</el-button>
-        <el-table v-if="copyRecords" :data="copyRecords" border style="width: 912px" ref="multipleTable">
+        <el-table v-if="copyRecords" :data="copyRecords" border style="width: 100%" ref="multipleTable">
             <el-table-column prop="book" label="书名" sortable width="200">
             </el-table-column>
-            <el-table-column prop="borrow_time" label="借书日期" sortable width="170">
+            <el-table-column prop="borrow_time" label="借书日期" align="center" sortable width="170">
             </el-table-column>
-            <el-table-column prop="deadline" label="还书日期" sortable width="170">
+            <el-table-column prop="deadline" label="还书日期" align="center" sortable width="170">
             </el-table-column>
-            <el-table-column prop="renew" label="剩余续借次数" sortable width="150">
+            <el-table-column prop="renew" label="剩余续借次数" align="center" sortable width="150">
             </el-table-column>
-            <el-table-column prop="isclosed" label="是否归还" sortable width="120">
+            <el-table-column prop="isclosed" label="是否归还" align="center" sortable width="120">
             </el-table-column>
-            <el-table-column prop="operator" label="经手人" sortable width="100">
+            <el-table-column prop="operator" label="经手人" sortable>
             </el-table-column>
         </el-table>
         <div v-if="allRecords&&!copyRecords">
@@ -29,18 +29,18 @@
                     </el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
-            <el-table style="width: 100%;margin-top: 20px;" :data="allRecords.records" border ref="multipleTable">
-                <el-table-column prop="copy" label="复本id" sortable width="200">
+            <el-table style="width: 100%;margin-top: 20px" :data="allRecords.records" border ref="multipleTable">
+                <el-table-column prop="copy" label="复本id" sortable width="100">
                 </el-table-column>
                 <el-table-column prop="user" label="借书人" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="borrow_time" label="借书日期" sortable width="170">
+                <el-table-column prop="borrow_time" label="借书日期" align="center" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="deadline" label="还书日期" sortable width="170">
+                <el-table-column prop="deadline" label="还书日期" align="center" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="isclosed" label="是否归还" sortable width="120">
+                <el-table-column prop="isclosed" align="center"  label="是否归还" sortable width="120">
                 </el-table-column>
-                <el-table-column prop="operator" label="经手人" sortable width="100">
+                <el-table-column prop="operator" label="经手人" sortable>
                 </el-table-column>
             </el-table>
             <div class="block">

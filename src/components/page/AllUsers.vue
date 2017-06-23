@@ -6,12 +6,12 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <el-table width="600" style="width: 602px" :data="allUsers" border ref="multipleTable">
-            <el-table-column prop="user" label="用户名" width="300">
+        <el-table width="600" style="width: 100%" :data="allUsers" border ref="multipleTable">
+            <el-table-column prop="user" label="用户名">
             </el-table-column>
-            <el-table-column prop="duration" label="借书期限" sortable width="150">
+            <el-table-column prop="duration" label="借书期限" align="center" sortable width="150">
             </el-table-column>
-            <el-table-column prop="isadmin" label="是否管理员" sortable width="150">
+            <el-table-column prop="isadmin" label="是否管理员" align="center" sortable width="150">
             </el-table-column>
         </el-table>
     </div>
