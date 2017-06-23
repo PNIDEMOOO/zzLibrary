@@ -12,6 +12,10 @@
             <el-table-column prop="duration" label="借书期限" align="center" sortable width="150">
             </el-table-column>
             <el-table-column prop="isadmin" label="是否管理员" align="center" sortable width="150">
+                <template scope="scope">
+                    <i v-if="scope.row.isadmin" class="iconfont icon-false"></i>
+                    <i v-if="!scope.row.isadmin" class="iconfont icon-true"></i>
+                </template>
             </el-table-column>
         </el-table>
     </div>
@@ -30,7 +34,7 @@
             this.$http.get(urlconf.getAllUsers(this.admin.token)).then(resp => {
                 this.allUsers = resp.body
                 for (var i = 0; i < this.allUsers.length; i++) {
-                    this.allUsers[i].isadmin = this.allUsers[i].isadmin ? "√" : "×"
+//                    this.allUsers[i].isadmin = this.allUsers[i].isadmin ? "√" : "×"
                 }
             }, resp => {
                 this.allUsers = null

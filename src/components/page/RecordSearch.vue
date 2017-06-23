@@ -18,6 +18,10 @@
             <el-table-column prop="renew" label="剩余续借次数" align="center" sortable width="150">
             </el-table-column>
             <el-table-column prop="isclosed" label="是否归还" align="center" sortable width="120">
+                <template scope="scope">
+                    <i v-if="scope.row.isclosed" class="iconfont icon-false"></i>
+                    <i v-if="!scope.row.isclosed" class="iconfont icon-true"></i>
+                </template>
             </el-table-column>
             <el-table-column prop="operator" label="经手人" sortable>
             </el-table-column>
@@ -38,7 +42,11 @@
                 </el-table-column>
                 <el-table-column prop="deadline" label="还书日期" align="center" sortable width="170">
                 </el-table-column>
-                <el-table-column prop="isclosed" align="center"  label="是否归还" sortable width="120">
+                <el-table-column prop="isclosed" align="center" label="是否归还" sortable width="120">
+                    <template scope="scope">
+                        <i v-if="scope.row.isclosed" class="iconfont icon-false"></i>
+                        <i v-if="!scope.row.isclosed" class="iconfont icon-true"></i>
+                    </template>
                 </el-table-column>
                 <el-table-column prop="operator" label="经手人" sortable>
                 </el-table-column>
@@ -72,7 +80,7 @@
             this.$http.get(urlconf.getAllRecords(this.admin.token, this.currentPage)).then(resp => {
                 this.allRecords = resp.body
                 for (var i = 0; i < this.allRecords.records.length; i++) {
-                    this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
+//                    this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
                     this.allRecords.records[i].borrow_time = this.allRecords.records[i].borrow_time.replace('T', ' ')
                     this.allRecords.records[i].deadline = this.allRecords.records[i].deadline.replace('T', ' ')
                 }
@@ -85,7 +93,7 @@
                 this.$http.get(urlconf.getCopyRecord(this.admin.token, this.copyId)).then(resp => {
                     this.copyRecords = resp.body
                     for (var i = 0; i < this.copyRecords.length; i++) {
-                        this.copyRecords[i].isclosed = this.copyRecords[i].isclosed ? "√" : "×"
+//                        this.copyRecords[i].isclosed = this.copyRecords[i].isclosed ? "√" : "×"
                         this.copyRecords[i].borrow_time = this.copyRecords[i].borrow_time.replace('T', ' ')
                         this.copyRecords[i].deadline = this.copyRecords[i].deadline.replace('T', ' ')
                     }
@@ -99,7 +107,7 @@
                     this.allRecords = resp.body
                     for (var i = 0; i < this.allRecords.records.length; i++) {
                         console.log(i)
-                        this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
+//                        this.allRecords.records[i].isclosed = this.allRecords.records[i].isclosed ? "√" : "×"
                         this.allRecords.records[i].borrow_time = this.allRecords.records[i].borrow_time.replace('T', ' ')
                         this.allRecords.records[i].deadline = this.allRecords.records[i].deadline.replace('T', ' ')
                     }

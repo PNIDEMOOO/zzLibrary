@@ -25,12 +25,16 @@
             <el-table-column prop="deadline" label="还书日期" align="center" sortable width="180">
             </el-table-column>
             <el-table-column prop="isclosed" label="是否归还" align="center" sortable width="120">
+                <template scope="scope">
+                    <i v-if="scope.row.isclosed" class="iconfont icon-false"></i>
+                    <i v-if="!scope.row.isclosed" class="iconfont icon-true"></i>
+                </template>
             </el-table-column>
             <el-table-column prop="renew" label="可续借次数" align="center" width="80">
             </el-table-column>
             <el-table-column prop="isclosed" label="操作" align="center" width="80">
                 <template scope="scope">
-                    <el-button v-if="scope.row.isclosed=='×' && scope.row.renew !=0" size="small"
+                    <el-button v-if="!scope.row.isclosed && scope.row.renew !=0" size="small"
                                @click="handleEdit(scope.$index, scope.row)">续借
                     </el-button>
                 </template>
